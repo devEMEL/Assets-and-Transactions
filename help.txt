@@ -1,0 +1,2 @@
+curl --location --request GET 'http://localhost:4001/v2/status' \
+--header 'X-Algo-API-Token: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
