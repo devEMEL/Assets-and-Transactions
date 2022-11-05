@@ -119,5 +119,40 @@ const assetOptIn = async (receiver, assetId) => {
 
     const signedTxn = txn.signTxn(creator.sk);
     const confirmedTxn = await submitToNetwork(signedTxn);
-    return confirmedTxn;
 }
+
+const assetTransfer = async (receiver, amount, assetId) => {
+
+    const suggestedParams = await algodClient.getTransactionParams().do();
+    const txn = algosdk.makeAssetTransferTxnWithSuggestedParams(
+        creator.addr,
+        receiver.addr,
+        undefined,
+        undefined,
+        amount,
+        undefined,
+        assetId,
+        suggestedParams
+    );
+
+    const signedTxn = txn.signTxn(creator.sk);
+    const confirmedTxn = await submitToNetwork(signedTxn);
+    // return confirmedTxn;
+}
+
+
+const getCreatedAsset = async (account, assetId) => {
+    let accountInfo = await algodClient.accountInformation(account.addr).do();
+    const asset = accountInfo["created-assets"].find((asset) => {
+        return asset["index"] === assetId;
+    });
+    return asset;
+};
+
+const getAssetHoldings = async (account, assetId) => {
+    let accountInfo = await algodClient.accountInformation(account.addr).do();
+    const asset = accountInfo["assets"].find((asset) => {
+        return asset["asset-id"] === assetId;
+    });
+    return asset;
+};
