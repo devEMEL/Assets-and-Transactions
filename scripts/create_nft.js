@@ -13,11 +13,10 @@ const submitToNetwork = async (signedTxn) => {
     confirmedTxn = await algosdk.waitForConfirmation(algodClient, tx.txId, 4)
 
     // Get the completed transaction
-    console.log(`Transaction: ${tx.txId} confirmed in round ${confirmedTxn["confirmed-round"]}`);
-    
+    console.log(`Transaction: ${tx.txId} confirmed in round ${confirmedTxn["confirmed-round"]}`); 
 
     return confirmedTxn;
-}
+};
 
 const createNFT = async () => {
 
@@ -58,7 +57,6 @@ const createNFT = async () => {
     return confirmedTxn["asset-index"];
 }
 
-
 const getCreatedAsset = async (account, assetId) => {
     let accountInfo = await algodClient.accountInformation(account.addr).do();
     const asset = accountInfo["created-assets"].find((asset) => {
@@ -66,7 +64,6 @@ const getCreatedAsset = async (account, assetId) => {
     });
     return asset;
 };
-
 
 (async () => {
     console.log("Creating NFT...");
