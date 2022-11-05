@@ -7,13 +7,14 @@ const submitToNetwork = async (signedTxn) => {
 
     // Send transaction
     const tx = await algodClient.sendRawTransaction(signedTxn).do();
-    console.log("Transaction: ", + tx.txId);
-
+    console.log(`Transaction: ${tx.txId}`);
+    
     // Wait for transaction to be confirmed
     confirmedTxn = await algosdk.waitForConfirmation(algodClient, tx.txId, 4)
 
     // Get the completed transaction
-    console.log("Transaction: " + tx.txId + " confirmed in round " + confirmedTxn["confirmed-round"])
+    console.log(`Transaction: ${tx.txId} confirmed in round ${confirmedTxn["confirmed-round"]}`);
+    
 
     return confirmedTxn;
 }
