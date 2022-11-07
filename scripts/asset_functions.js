@@ -164,16 +164,22 @@ const getAssetHoldings = async (account, assetId) => {
     
     const Assetcreate = await createAsset();
     const assetId = Assetcreate["asset-index"];
+    const assetCreated = await getCreatedAsset(creator, assetId);
+    console.log(assetCreated);
+    let cbAddress1 = assetCreated.params.clawback;
+    console.log(cbAddress1)
     
-    // const assetCreated = await getCreatedAsset(creator, assetId);
-    // console.log(assetCreated);
-    // console.log(assetCreated.params.freeze)
-
     const AssetoptIn = await assetOptIn(receiver, assetId);
-
     const AssetHoldings = await getAssetHoldings(creator, assetId);
     console.log(AssetHoldings)
 
+    const assetModify = await modifyAsset(assetId);
+    const ModifiedAssetInfo= await getCreatedAsset(creator, assetId);
+    console.log(ModifiedAssetInfo);
+    let cbAddress2 = ModifiedAssetInfo.params.clawback;
+    console.log(cbAddress2)
+
+    cbAddress1 === cbAddress2 ? console.log("true") : console.log(`Clawback Address has been changed from ${cbAddress1} to ${cbAddress2}`)
 
 
 })();
